@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CharacterController3D : MonoBehaviour
 {
-     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Camera playerCamera;
+	[SerializeField] private GameObject firstCamera;
 	[SerializeField] float mouseSenstivity = 3.5f;
 	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10, runSpeed = 20;
     [SerializeField][Range(0.0f, 25.0f)] float jumpSpeed = 8.0f;
@@ -36,14 +37,29 @@ public class CharacterController3D : MonoBehaviour
 	// public LayerMask whatIsFloor;
     //Reset Variables
     private float resetCd = 4f;
-    private float lastReset = 0f;
+    private float lastReset = -4f;
     [SerializeField]private Transform resetPoint;
+	[SerializeField]private bool isReset = false;
     public GameObject ashBox;
+	private Transform deathCamera;
+	private float rotationSpeed = 5;
+	Animator animator;
+	
+	//Throw ash box part
+
+	private Transform hand;
+	[SerializeField] private float throwForce = 1000f;
+	private Transform collector;
 
 	private void Start()
 	{
 		controller = GetComponent<CharacterController>();
         resetPoint = GameObject.Find("SpawnPoint").transform;
+		deathCamera = transform.Find("DeathCamera").transform;
+		firstCamera = transform.Find("Camera").gameObject;
+		hand = transform.Find("Camera").transform.Find("Hand");
+		animator = transform.Find("Capsule").GetComponent<Animator>();
+		collector = GameObject.Find("AshBoxCollector").transform;
 		// Hide the cursor and lock mouse to screen.
 		if (lockCursor)
 		{
@@ -54,10 +70,14 @@ public class CharacterController3D : MonoBehaviour
 
 	private void Update()
 	{
-		MouseLook();
-		UpdateMovement();
-        UpdateJump();
-        UpdateReset();		
+		if(!isReset)
+		{
+			MouseLook();
+			UpdateMovement();
+        	UpdateJump();
+			ThrowUrn();
+
+		}		
 	}
 
     private void FixedUpdate()
@@ -65,6 +85,11 @@ public class CharacterController3D : MonoBehaviour
 		isGrounded = controller.isGrounded;
 	}
 
+	private void LateUpdate()
+	{
+		deathCamera.rotation = Quaternion.Slerp(deathCamera.rotation, Quaternion.LookRotation(transform.position - deathCamera.position), rotationSpeed*Time.deltaTime);
+		UpdateReset();
+	}
 	// Forces the camera to follow the mouse movement.
     void MouseLook()
 	{
@@ -130,17 +155,53 @@ public class CharacterController3D : MonoBehaviour
         controller.Move(jumpDirection * Time.deltaTime);
     }
 
+	private void ThrowUrn()
+	{
+		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
+		{
+			var box = hand.transform.GetChild(0);
+			box.SetParent(collector);
+			box.GetComponent<Rigidbody>().isKinematic = false;
+			box.GetComponent<Rigidbody>().velocity = transform.forward * throwForce;
+		}
+	}
+
     void UpdateReset()
     {
         if(lastReset + resetCd < Time.time && Input.GetKey(KeyCode.R))
         {
-            var boxPoint = transform.position;
-            boxPoint.y += 5f;
-            Instantiate(ashBox, boxPoint,Quaternion.identity);
-            var pos = resetPoint.position;
-            transform.position = pos;
-            Debug.Log(resetPoint.position);
-            lastReset = Time.time;
+			StartCoroutine(DeathAnimation());
+			lastReset = Time.time;
         }
     }
+
+	IEnumerator DeathAnimation(){
+		controller.enabled = false;
+		isReset = true;
+		deathCamera.gameObject.SetActive(true);
+		firstCamera.SetActive(false);
+		animator.SetBool("isResetting", true);
+		yield return new WaitForSeconds(2f);
+		deathCamera.gameObject.SetActive(false);
+		firstCamera.SetActive(true);
+		animator.SetBool("isResetting", false);
+		deathDealer();
+		isReset = false;
+		controller.enabled = true;
+	}
+
+	void deathDealer(){
+		if(collector.childCount > 0)
+		{
+			var boxT = collector.GetChild(0);
+			var targetPos = boxT.position;
+			targetPos.y += 2f;
+			transform.position = targetPos;
+		}else{
+			var pos = resetPoint.position;
+        	transform.position = pos;
+			
+		}
+
+	}
 }
