@@ -57,6 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &4102976889194048077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8905679137192176717
 MonoBehaviour:
@@ -106,3 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08a003f09f752047a3900a3fdcc3742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickRange: 2
+  onHand: 1
