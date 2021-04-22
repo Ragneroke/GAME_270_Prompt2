@@ -7,7 +7,7 @@ public class CharacterController3D : MonoBehaviour
     [SerializeField] private Camera playerCamera;
 	[SerializeField] private GameObject firstCamera;
 	[SerializeField] float mouseSenstivity = 3.5f;
-	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10, runSpeed = 20;
+	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10;
     [SerializeField][Range(0.0f, 25.0f)] float jumpSpeed = 8.0f;
 	[SerializeField][Range(0.0f, 20.0f)] float gravityStrength = 13.0f;
 	[SerializeField] float moveSmoothTime = 0.1f;
