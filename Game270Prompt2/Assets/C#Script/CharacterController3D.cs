@@ -165,14 +165,14 @@ public class CharacterController3D : MonoBehaviour
 			var horizontalVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
 
 			if(controller.isGrounded){
-				throwForce = 12f;
+				throwForce = 13f;
 			} else {
 				throwForce = 16f;
 			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + horizontalVelocity;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + horizontalVelocity * 2f;
 		}
 	}
 
