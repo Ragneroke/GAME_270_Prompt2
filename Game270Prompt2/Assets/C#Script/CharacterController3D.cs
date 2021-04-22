@@ -48,7 +48,7 @@ public class CharacterController3D : MonoBehaviour
 	//Throw ash box part
 
 	private Transform hand;
-	[SerializeField] private float throwForce = 5000f;
+	[SerializeField] private float throwForce;
 	private Transform collector;
 
 	private void Start()
@@ -162,15 +162,17 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
 		{
+			var horizontalVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
+
 			if(controller.isGrounded){
-				throwForce = 16f;
+				throwForce = 12f;
 			} else {
-				throwForce = 20f;
+				throwForce = 16f;
 			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + horizontalVelocity;
 		}
 	}
 
