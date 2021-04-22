@@ -48,7 +48,7 @@ public class CharacterController3D : MonoBehaviour
 	//Throw ash box part
 
 	private Transform hand;
-	[SerializeField] private float throwForce = 1000f;
+	[SerializeField] private float throwForce = 5000f;
 	private Transform collector;
 
 	private void Start()
@@ -162,7 +162,7 @@ public class CharacterController3D : MonoBehaviour
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = transform.forward * throwForce;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce;
 		}
 	}
 
@@ -175,6 +175,11 @@ public class CharacterController3D : MonoBehaviour
         }
     }
 
+	void CallReset()
+	{
+		StartCoroutine(DeathAnimation());
+		lastReset = Time.time;
+	}
 	IEnumerator DeathAnimation(){
 		controller.enabled = false;
 		isReset = true;
@@ -203,5 +208,12 @@ public class CharacterController3D : MonoBehaviour
 			
 		}
 
+	}
+
+	private void OnControllerColliderHit(ControllerColliderHit hit) {
+		if(hit.gameObject.tag == "killPlayer")
+		{
+			CallReset();
+		}
 	}
 }
