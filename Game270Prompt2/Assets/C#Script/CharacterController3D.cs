@@ -159,6 +159,11 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
 		{
+			if(controller.isGrounded){
+				throwForce = 16f;
+			} else {
+				throwForce = 20f;
+			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
