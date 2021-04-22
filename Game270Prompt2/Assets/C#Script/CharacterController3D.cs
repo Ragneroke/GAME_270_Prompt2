@@ -72,7 +72,6 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(!isReset)
 		{
-			MouseLook();
 			UpdateMovement();
         	UpdateJump();
 			ThrowUrn();
@@ -91,6 +90,7 @@ public class CharacterController3D : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		MouseLook();
 		deathCamera.rotation = Quaternion.Slerp(deathCamera.rotation, Quaternion.LookRotation(transform.position - deathCamera.position), rotationSpeed*Time.deltaTime);
 		UpdateReset();
 	}

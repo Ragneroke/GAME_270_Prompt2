@@ -2296,6 +2296,11 @@ PrefabInstance:
       propertyPath: throwForce
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8732701949318650556, guid: 87bd0fb6eead305489a65edebd9336d9,
+        type: 3}
+      propertyPath: mouseSmoothTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8732701949318650559, guid: 87bd0fb6eead305489a65edebd9336d9,
         type: 3}
       propertyPath: m_RootOrder
