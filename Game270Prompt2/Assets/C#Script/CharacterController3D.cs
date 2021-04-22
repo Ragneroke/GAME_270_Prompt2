@@ -151,7 +151,10 @@ public class CharacterController3D : MonoBehaviour
         }
 
         jumpDirection.y -= gravityStrength * Time.deltaTime;
-
+		if(jumpDirection.y <= -10f)
+		{
+			jumpDirection.y = -10f;
+		}
         controller.Move(jumpDirection * Time.deltaTime);
     }
 
