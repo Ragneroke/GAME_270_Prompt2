@@ -77,6 +77,10 @@ public class CharacterController3D : MonoBehaviour
         	UpdateJump();
 			ThrowUrn();
 
+		}
+		if(Input.GetKey(KeyCode.Escape))
+		{
+			Application.Quit();
 		}		
 	}
 
