@@ -19,9 +19,7 @@ public class CharacterController3D : MonoBehaviour
 	float cameraPitch = 0.0f;
 	float velocityY = 0.0f;
 
-
-	CharacterController controller = null;
-
+	CharacterController controller;
 
 	Vector2 currentDir = Vector2.zero;
 	Vector2 currentDirVelocity = Vector2.zero;
@@ -50,9 +48,7 @@ public class CharacterController3D : MonoBehaviour
 	//Throw ash box part
 
 	private Transform hand;
-  
 	[SerializeField] private float throwForce = 5000f;
-
 	private Transform collector;
 
 	private void Start()
@@ -155,15 +151,17 @@ public class CharacterController3D : MonoBehaviour
         }
 
         jumpDirection.y -= gravityStrength * Time.deltaTime;
-
+		if(jumpDirection.y <= -10f)
+		{
+			jumpDirection.y = -10f;
+		}
         controller.Move(jumpDirection * Time.deltaTime);
     }
 
 	private void ThrowUrn()
 	{
 		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
-
-		{	
+		{
 			if(controller.isGrounded){
 				throwForce = 16f;
 			} else {
