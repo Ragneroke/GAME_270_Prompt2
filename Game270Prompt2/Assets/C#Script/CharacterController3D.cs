@@ -19,7 +19,7 @@ public class CharacterController3D : MonoBehaviour
 	float cameraPitch = 0.0f;
 	float velocityY = 0.0f;
 
-	CharacterController controller = null;
+	CharacterController controller;
 
 	Vector2 currentDir = Vector2.zero;
 	Vector2 currentDirVelocity = Vector2.zero;
