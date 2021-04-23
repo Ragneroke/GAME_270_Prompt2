@@ -3,7 +3,17 @@ guid: 9cae7e4683d9d6f43972671baf4035db
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: urn_box
+    second: {fileID: 2100000, guid: 53ff2bb4ec354cd4997f29440af94bb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: urn_frame
+    second: {fileID: 2100000, guid: 4d056835494e0474a87898055045bbe3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

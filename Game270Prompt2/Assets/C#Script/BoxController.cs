@@ -25,23 +25,31 @@ public class BoxController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.name);
-        if(other.gameObject.tag == "Ground")
+
+        onHand = false;
+
+
+        if(other.gameObject.tag == "killPlayer")
         {
-            onHand = false;
+            BackToHand();
         }
     }
 
     void PickupUpdate()
     {
         var dis = Vector3.Distance(transform.position, player.position);
-        if(dis <= pickRange)
+        if(dis <= pickRange && !onHand)
         {
-            var pos = player.transform.Find("Camera").transform.Find("Hand").position;
-            transform.position = pos;
-            transform.SetParent(player.transform.Find("Camera").transform.Find("Hand"));
-            GetComponent<Rigidbody>().isKinematic = true;
-            onHand = true;
+            BackToHand();
         }
+    }
+
+    void BackToHand()
+    {
+        var pos = player.transform.Find("Camera").transform.Find("Hand").position;
+        transform.position = pos;
+        transform.SetParent(player.transform.Find("Camera").transform.Find("Hand"));
+        GetComponent<Rigidbody>().isKinematic = true;
+        onHand = true;
     }
 }
