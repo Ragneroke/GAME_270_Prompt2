@@ -7,7 +7,7 @@ public class CharacterController3D : MonoBehaviour
     [SerializeField] private Camera playerCamera;
 	[SerializeField] private GameObject firstCamera;
 	[SerializeField] float mouseSenstivity = 3.5f;
-	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10, runSpeed = 20;
+	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10;
     [SerializeField][Range(0.0f, 25.0f)] float jumpSpeed = 8.0f;
 	[SerializeField][Range(0.0f, 20.0f)] float gravityStrength = 13.0f;
 	[SerializeField] float moveSmoothTime = 0.1f;
@@ -48,7 +48,7 @@ public class CharacterController3D : MonoBehaviour
 	//Throw ash box part
 
 	private Transform hand;
-	[SerializeField] private float throwForce = 5000f;
+	[SerializeField] private float throwForce;
 	private Transform collector;
 
 	private void Start()
@@ -72,11 +72,14 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(!isReset)
 		{
-			MouseLook();
 			UpdateMovement();
         	UpdateJump();
 			ThrowUrn();
 
+		}
+		if(Input.GetKey(KeyCode.Escape))
+		{
+			Application.Quit();
 		}		
 	}
 
@@ -87,6 +90,7 @@ public class CharacterController3D : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		MouseLook();
 		deathCamera.rotation = Quaternion.Slerp(deathCamera.rotation, Quaternion.LookRotation(transform.position - deathCamera.position), rotationSpeed*Time.deltaTime);
 		UpdateReset();
 	}
@@ -151,7 +155,10 @@ public class CharacterController3D : MonoBehaviour
         }
 
         jumpDirection.y -= gravityStrength * Time.deltaTime;
-
+		if(jumpDirection.y <= -10f)
+		{
+			jumpDirection.y = -10f;
+		}
         controller.Move(jumpDirection * Time.deltaTime);
     }
 
@@ -159,15 +166,17 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
 		{
+			var horizontalVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
+
 			if(controller.isGrounded){
-				throwForce = 16f;
+				throwForce = 13f;
 			} else {
-				throwForce = 20f;
+				throwForce = 16f;
 			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + horizontalVelocity * 2f;
 		}
 	}
 
