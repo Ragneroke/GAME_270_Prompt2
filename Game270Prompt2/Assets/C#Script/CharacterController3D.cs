@@ -169,9 +169,9 @@ public class CharacterController3D : MonoBehaviour
 			var horizontalVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
 
 			if(controller.isGrounded){
-				throwForce = 13f;
+				throwForce = 14f;
 			} else {
-				throwForce = 16f;
+				throwForce = 18f;
 			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
