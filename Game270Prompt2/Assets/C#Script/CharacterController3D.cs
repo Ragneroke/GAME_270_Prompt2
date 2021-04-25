@@ -7,8 +7,6 @@ public class CharacterController3D : MonoBehaviour
     [SerializeField] private Camera playerCamera;
 	[SerializeField] private GameObject firstCamera;
 	private Vector3 cameraPos;
-	[SerializeField] private Transform offPoint;
-	[SerializeField] private Transform originCam;
 	[SerializeField] float mouseSenstivity = 3.5f;
 	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10f;
 	[SerializeField][Range(0.0f, 25.0f)] float sprintSpeed = 20f;
@@ -65,9 +63,7 @@ public class CharacterController3D : MonoBehaviour
         resetPoint = GameObject.Find("SpawnPoint").transform;
 		deathCamera = transform.Find("DeathCamera").transform;
 		firstCamera = transform.Find("Camera").gameObject;
-		originCam = transform.Find("OriginCam");
 		cameraPos = firstCamera.transform.position;
-		offPoint = transform.Find("OffSetPoint");
 		hand = transform.Find("Camera").transform.Find("Hand");
 		animator = transform.Find("Capsule").GetComponent<Animator>();
 		collector = GameObject.Find("AshBoxCollector").transform;
@@ -83,6 +79,7 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(!isReset)
 		{
+			MouseLook();
 			UpdateMovement();
         	UpdateJump();
 
@@ -100,7 +97,6 @@ public class CharacterController3D : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		MouseLook();
 		if(!isReset)
 		{
 			ThrowUrn();
