@@ -178,8 +178,9 @@ public class CharacterController3D : MonoBehaviour
 
     void UpdateJump()
     {
-        if(controller.isGrounded && Input.GetButton("Jump"))
+        if(isGrounded && Input.GetButtonDown("Jump"))
         {
+			Debug.Log("JumpTriggered");
             jumpDirection.y = jumpSpeed;
         }
 
