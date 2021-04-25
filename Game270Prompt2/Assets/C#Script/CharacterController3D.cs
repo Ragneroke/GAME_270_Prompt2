@@ -156,21 +156,21 @@ public class CharacterController3D : MonoBehaviour
 
 		// Movement vector
 		// Update Sprint function
-		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
-		{
-			if(playerCamera.fieldOfView >= 70f)
-			{
-				playerCamera.fieldOfView -= 0.1f;
-			}
-			sprintForce = Mathf.Lerp(0f, sprintSpeed,1);
-		}else{
-			if(playerCamera.fieldOfView <= 80f)
-			{
-				playerCamera.fieldOfView += 0.1f;
-			}
-			firstCamera.transform.position = Vector3.SmoothDamp(firstCamera.transform.position, originCam.position, ref cameraVelocity, moveSmoothTime);
-			sprintForce = 0f;
-		}
+		// if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+		// {
+		// 	if(playerCamera.fieldOfView >= 70f)
+		// 	{
+		// 		playerCamera.fieldOfView -= 0.1f;
+		// 	}
+		// 	sprintForce = Mathf.Lerp(0f, sprintSpeed,1);
+		// }else{
+		// 	if(playerCamera.fieldOfView <= 80f)
+		// 	{
+		// 		playerCamera.fieldOfView += 0.1f;
+		// 	}
+		// 	firstCamera.transform.position = Vector3.SmoothDamp(firstCamera.transform.position, originCam.position, ref cameraVelocity, moveSmoothTime);
+		// 	sprintForce = 0f;
+		// }
 		velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * (walkSpeed + sprintForce) + Vector3.up * velocityY;
 
 		controller.Move(velocity * Time.deltaTime);
@@ -180,7 +180,6 @@ public class CharacterController3D : MonoBehaviour
     {
         if(isGrounded && Input.GetButtonDown("Jump"))
         {
-			Debug.Log("JumpTriggered");
             jumpDirection.y = jumpSpeed;
         }
 

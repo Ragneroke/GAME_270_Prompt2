@@ -45,7 +45,7 @@ public class BoxController : MonoBehaviour
         if(dis <= pickRange && !onHand)
         {
             BackToHand();
-            transform.localScale = new Vector3(60f, 60f, 60f);
+            transform.localScale = new Vector3(50f, 50f, 50f);
         }
     }
 
