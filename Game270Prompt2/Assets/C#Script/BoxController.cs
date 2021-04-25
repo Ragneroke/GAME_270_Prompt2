@@ -20,6 +20,15 @@ public class BoxController : MonoBehaviour
         if(!onHand)
         {
             PickupUpdate();
+
+            if (transform.localScale.x < 30){
+                transform.localScale += new Vector3(3,3,3);
+            }
+            
+        } else {
+            if (transform.localScale.x > 30){
+                transform.localScale -= new Vector3(10,10,10);
+            }
         }
     }
 
