@@ -8,11 +8,10 @@ public class BoxController : MonoBehaviour
     private Transform player;
     [SerializeField] private float pickRange = 2f;
     public bool onHand = true;
-    private Vector3 offHandScale;
     void Start()
     {
         player = GameObject.Find("Player 0.2").transform;
-        offHandScale = new Vector3(62f,62f,62f);
+        
     }
 
     // Update is called once per frame
@@ -21,16 +20,22 @@ public class BoxController : MonoBehaviour
         if(!onHand)
         {
             PickupUpdate();
+
+            if (transform.localScale.x < 30){
+                transform.localScale += new Vector3(3,3,3);
+            }
+            
+        } else {
+            if (transform.localScale.x > 30){
+                transform.localScale -= new Vector3(10,10,10);
+            }
         }
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.transform.tag == "Ground")
-        {
-            onHand = false;
-            transform.localScale = offHandScale;
-        }
+
+        onHand = false;
 
 
         if(other.gameObject.tag == "killPlayer")
@@ -45,7 +50,6 @@ public class BoxController : MonoBehaviour
         if(dis <= pickRange && !onHand)
         {
             BackToHand();
-            transform.localScale = new Vector3(50f, 50f, 50f);
         }
     }
 
