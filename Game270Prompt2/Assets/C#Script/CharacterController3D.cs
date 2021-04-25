@@ -79,6 +79,7 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(!isReset)
 		{
+			MouseLook();
 			UpdateMovement();
         	UpdateJump();
 
