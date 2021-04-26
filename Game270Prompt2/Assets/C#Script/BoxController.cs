@@ -20,7 +20,7 @@ public class BoxController : MonoBehaviour
         if(!onHand)
         {
             PickupUpdate();
-
+            ReturnHand();
             if (transform.localScale.x < 30){
                 transform.localScale += new Vector3(3,3,3);
             }
@@ -34,8 +34,10 @@ public class BoxController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-
-        onHand = false;
+        if(other.transform.tag != "Player")
+        {
+            onHand = false;
+        }
 
 
         if(other.gameObject.tag == "killPlayer")
@@ -60,5 +62,13 @@ public class BoxController : MonoBehaviour
         transform.SetParent(player.transform.Find("Camera").transform.Find("Hand"));
         GetComponent<Rigidbody>().isKinematic = true;
         onHand = true;
+    }
+
+    void ReturnHand()
+    {
+        if(transform.position.y <= -70f)
+        {
+            BackToHand();
+        }
     }
 }

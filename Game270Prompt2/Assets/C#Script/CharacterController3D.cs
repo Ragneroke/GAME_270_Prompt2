@@ -43,7 +43,7 @@ public class CharacterController3D : MonoBehaviour
     //Reset Variables
     private float resetCd = 4f;
     private float lastReset = -4f;
-    [SerializeField]private Transform resetPoint;
+    public Transform resetPoint;
 	[SerializeField]private bool isReset = false;
     public GameObject ashBox;
 	private Transform deathCamera;
@@ -60,7 +60,6 @@ public class CharacterController3D : MonoBehaviour
 	private void Start()
 	{
 		controller = GetComponent<CharacterController>();
-        resetPoint = GameObject.Find("SpawnPoint").transform;
 		deathCamera = transform.Find("DeathCamera").transform;
 		firstCamera = transform.Find("Camera").gameObject;
 		cameraPos = firstCamera.transform.position;
