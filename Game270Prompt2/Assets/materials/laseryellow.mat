@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: laser
+  m_Name: laseryellow
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 0
@@ -74,6 +74,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 0.87058824}
-    - _EmissionColor: {r: 5.3403134, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.9455147, g: 1, b: 0, a: 0.80784315}
+    - _EmissionColor: {r: 1, g: 0.8514773, b: 0.09119487, a: 1}
   m_BuildTextureStacks: []

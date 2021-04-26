@@ -230,4 +230,11 @@ public class CharacterController3D : MonoBehaviour
 			CallReset();
 		}
 	}
+
+	private void OnTriggerEnter(Collider other) {
+		if(other.gameObject.tag == "killPlayer")
+		{
+			CallReset();
+		}
+	}
 }

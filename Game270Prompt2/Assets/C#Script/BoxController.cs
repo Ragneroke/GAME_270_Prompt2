@@ -21,20 +21,30 @@ public class BoxController : MonoBehaviour
         {
             PickupUpdate();
 
-            if (transform.localScale.x < 30){
-                transform.localScale += new Vector3(3,3,3);
-            }
+            // if (transform.localScale.x < 30){
+            //     transform.localScale += new Vector3(3,3,3);
+            // }
             
-        } else {
-            if (transform.localScale.x > 30){
-                transform.localScale -= new Vector3(10,10,10);
-            }
-        }
+        } 
+        // else {
+        //     if (transform.localScale.x > 30){
+        //         transform.localScale -= new Vector3(10,10,10);
+        //     }
+        // }
     }
 
     void OnCollisionEnter(Collision other)
     {
 
+        onHand = false;
+
+
+        if(other.gameObject.tag == "killPlayer")
+        {
+            BackToHand();
+        }
+    }
+    void OnTriggerEnter(Collider other) {
         onHand = false;
 
 
