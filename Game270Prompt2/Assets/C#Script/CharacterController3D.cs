@@ -199,7 +199,7 @@ public class CharacterController3D : MonoBehaviour
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + velocity/2f;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + velocity;
 		}
 	}
 
