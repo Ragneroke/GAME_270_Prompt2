@@ -174,6 +174,7 @@ GameObject:
   - component: {fileID: 4765133203659366017}
   - component: {fileID: 7310939016258599950}
   - component: {fileID: 1545344539200340882}
+  - component: {fileID: 987565299007765681}
   m_Layer: 0
   m_Name: AshBox
   m_TagString: Untagged
@@ -240,3 +241,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickRange: 2
   onHand: 1
+--- !u!114 &987565299007765681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7621620132366024074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.735849, g: 0, b: 0, a: 1}
+  outlineWidth: 5.72
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
