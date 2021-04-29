@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ceilingLaser : MonoBehaviour
 {
-    public Material[] laserColors;
-    [SerializeField]
-    Renderer rend;
+    public float cd;
     public float timer = 2f;
     public float shootTime = 1f;
     Transform conelaser;
@@ -14,9 +12,6 @@ public class ceilingLaser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rend = GameObject.Find("Sphere").GetComponent<Renderer>();
-        rend.enabled = true;
-
         conelaser = this.transform.Find("Conelaser");
         Debug.Log(this.name);
     }
@@ -30,7 +25,7 @@ public class ceilingLaser : MonoBehaviour
             shootTime -= Time.deltaTime;
             if (shootTime < 0)
             {
-                timer = Random.Range(9,15);
+                timer = cd;
                 shootTime = 1f;
             }
             
