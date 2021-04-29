@@ -59,7 +59,7 @@ public class CharacterController3D : MonoBehaviour
 
 	[Space]
 	[Header("VFX")]
-	public ParticleSystem VFX_Respawn;
+	public GameObject VFX_Respawn;
 
 	private void Start()
 	{
@@ -241,13 +241,17 @@ public class CharacterController3D : MonoBehaviour
 		{
 			var boxT = collector.GetChild(0);
 			var targetPos = boxT.position;
+			Instantiate(VFX_Respawn,targetPos,Quaternion.identity);
 			targetPos.y += 2f;
 			transform.position = targetPos;
 		}else{
 			var pos = resetPoint.position;
+			Vector3 resVFXPos = new Vector3(pos.x,pos.y-5f,pos.z);
+			Instantiate(VFX_Respawn, resVFXPos, Quaternion.identity);
         	transform.position = pos;
 			
 		}
+
 
 	}
 

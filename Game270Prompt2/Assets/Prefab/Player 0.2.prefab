@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 8732701949334012689}
-  firstCamera: {fileID: 0}
+  firstCamera: {fileID: 2226449700750068443}
   mouseSenstivity: 3.5
   walkSpeed: 10
   sprintSpeed: 10
@@ -395,8 +395,10 @@ MonoBehaviour:
   jumpDirection: {x: 0, y: 0, z: 0}
   resetPoint: {fileID: 0}
   isReset: 0
-  ashBox: {fileID: 6551165103325961515, guid: bbdaf865fa93bba43ad53cf1521c34d7, type: 3}
+  ashBox: {fileID: 7621620132366024074, guid: bbdaf865fa93bba43ad53cf1521c34d7, type: 3}
   throwForce: 10
+  VFX_Respawn: {fileID: 6774173583007331760, guid: 4fac35bf340ae0f4ebdd48d014a6fe88,
+    type: 3}
 --- !u!114 &2123635169
 MonoBehaviour:
   m_ObjectHideFlags: 0
