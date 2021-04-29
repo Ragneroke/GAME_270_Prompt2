@@ -46,6 +46,19 @@ public class BoxController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other) {
+        if(other.transform.tag != "Player")
+        {
+            onHand = false;
+        }
+
+
+        if(other.gameObject.tag == "killPlayer")
+        {
+            BackToHand();
+        }
+    }
+
     void PickupUpdate()
     {
         var dis = Vector3.Distance(transform.position, player.position);
