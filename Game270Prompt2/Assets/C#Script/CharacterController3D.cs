@@ -6,12 +6,17 @@ public class CharacterController3D : MonoBehaviour
 {
     [SerializeField] private Camera playerCamera;
 	[SerializeField] private GameObject firstCamera;
+	private Vector3 cameraPos;
 	[SerializeField] float mouseSenstivity = 3.5f;
-	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10;
+	[SerializeField][Range(0.0f, 25.0f)] float walkSpeed = 10f;
+	[SerializeField][Range(0.0f, 25.0f)] float sprintSpeed = 20f;
+	[SerializeField] private float sprintForce = 0f;
+
     [SerializeField][Range(0.0f, 25.0f)] float jumpSpeed = 8.0f;
 	[SerializeField][Range(0.0f, 20.0f)] float gravityStrength = 13.0f;
 	[SerializeField] float moveSmoothTime = 0.1f;
 	[SerializeField] float mouseSmoothTime = 0.03f;
+	[SerializeField] Vector3 cameraVelocity = Vector3.zero;
 	[SerializeField] [Range(0.0f, 5.0f)] private float leanAmount = 1.0f;
 	[SerializeField] float leanSpeed = 5.0f;
 	[SerializeField] bool lockCursor = true;
@@ -38,7 +43,7 @@ public class CharacterController3D : MonoBehaviour
     //Reset Variables
     private float resetCd = 4f;
     private float lastReset = -4f;
-    [SerializeField]private Transform resetPoint;
+    public Transform resetPoint;
 	[SerializeField]private bool isReset = false;
     public GameObject ashBox;
 	private Transform deathCamera;
@@ -50,6 +55,7 @@ public class CharacterController3D : MonoBehaviour
 	private Transform hand;
 	[SerializeField] private float throwForce;
 	private Transform collector;
+	private Vector3 velocity;
 
 	[Space]
 	[Header("VFX")]
@@ -58,9 +64,9 @@ public class CharacterController3D : MonoBehaviour
 	private void Start()
 	{
 		controller = GetComponent<CharacterController>();
-        resetPoint = GameObject.Find("SpawnPoint").transform;
 		deathCamera = transform.Find("DeathCamera").transform;
 		firstCamera = transform.Find("Camera").gameObject;
+		cameraPos = firstCamera.transform.position;
 		hand = transform.Find("Camera").transform.Find("Hand");
 		animator = transform.Find("Capsule").GetComponent<Animator>();
 		collector = GameObject.Find("AshBoxCollector").transform;
@@ -76,9 +82,9 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(!isReset)
 		{
+			MouseLook();
 			UpdateMovement();
         	UpdateJump();
-			ThrowUrn();
 
 		}
 		if(Input.GetKey(KeyCode.Escape))
@@ -94,7 +100,10 @@ public class CharacterController3D : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		MouseLook();
+		if(!isReset)
+		{
+			ThrowUrn();
+		}
 		deathCamera.rotation = Quaternion.Slerp(deathCamera.rotation, Quaternion.LookRotation(transform.position - deathCamera.position), rotationSpeed*Time.deltaTime);
 		UpdateReset();
 	}
@@ -145,16 +154,31 @@ public class CharacterController3D : MonoBehaviour
 		velocityY += -Mathf.Abs(gravityStrength) * Time.deltaTime; // Invert the gravity force
 
 		// Movement vector
-		Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
+		// Update Sprint function
+		// if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+		// {
+		// 	if(playerCamera.fieldOfView >= 70f)
+		// 	{
+		// 		playerCamera.fieldOfView -= 0.1f;
+		// 	}
+		// 	sprintForce = Mathf.Lerp(0f, sprintSpeed,1);
+		// }else{
+		// 	if(playerCamera.fieldOfView <= 80f)
+		// 	{
+		// 		playerCamera.fieldOfView += 0.1f;
+		// 	}
+		// 	firstCamera.transform.position = Vector3.SmoothDamp(firstCamera.transform.position, originCam.position, ref cameraVelocity, moveSmoothTime);
+		// 	sprintForce = 0f;
+		// }
+		velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * (walkSpeed + sprintForce) + Vector3.up * velocityY;
 
 		controller.Move(velocity * Time.deltaTime);
 	}
 
     void UpdateJump()
     {
-        if(controller.isGrounded && Input.GetButton("Jump"))
+        if(isGrounded && Input.GetButtonDown("Jump"))
         {
-            Debug.Log(controller.isGrounded);
             jumpDirection.y = jumpSpeed;
         }
 
@@ -170,17 +194,16 @@ public class CharacterController3D : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) && hand.transform.childCount != 0)
 		{
-			var horizontalVelocity = new Vector3(controller.velocity.x, 0, controller.velocity.z);
 
 			if(controller.isGrounded){
-				throwForce = 14f;
+				throwForce = 13f;
 			} else {
-				throwForce = 18f;
+				throwForce = 16f;
 			}
 			var box = hand.transform.GetChild(0);
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
-			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + horizontalVelocity * 2f;
+			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + velocity;
 		}
 	}
 
