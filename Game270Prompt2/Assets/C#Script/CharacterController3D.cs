@@ -51,6 +51,10 @@ public class CharacterController3D : MonoBehaviour
 	[SerializeField] private float throwForce;
 	private Transform collector;
 
+	[Space]
+	[Header("VFX")]
+	public ParticleSystem VFX_Respawn;
+
 	private void Start()
 	{
 		controller = GetComponent<CharacterController>();
