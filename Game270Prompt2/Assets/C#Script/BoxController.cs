@@ -20,7 +20,6 @@ public class BoxController : MonoBehaviour
         if(!onHand)
         {
             PickupUpdate();
-            ReturnHand();
             // if (transform.localScale.x < 30){
             //     transform.localScale += new Vector3(3,3,3);
             // }
@@ -30,6 +29,8 @@ public class BoxController : MonoBehaviour
             //     transform.localScale -= new Vector3(10,10,10);
             // }
         }
+
+        ReturnHand();
     }
 
     void OnCollisionEnter(Collision other)
