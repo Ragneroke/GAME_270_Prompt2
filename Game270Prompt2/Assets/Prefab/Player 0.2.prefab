@@ -380,7 +380,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8732701949334012689}
   firstCamera: {fileID: 0}
   mouseSenstivity: 3.5
-  walkSpeed: 10
+  walkSpeed: 12
   sprintSpeed: 10
   sprintForce: 0
   jumpSpeed: 8
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eacfc683713ca4082d7210c7dd1f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 7.5
+  walkingSpeed: 8.5
   runningSpeed: 11.5
   jumpSpeed: 8
   gravity: 20
