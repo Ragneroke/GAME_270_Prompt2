@@ -197,6 +197,10 @@ public class CharacterController3D : MonoBehaviour
 				throwForce = 16f;
 			}
 			var box = hand.transform.GetChild(0);
+			var boxPos = box.localPosition;
+			boxPos.x = -2f;
+			boxPos.y += 1f;
+			box.localPosition = boxPos;			
 			box.SetParent(collector);
 			box.GetComponent<Rigidbody>().isKinematic = false;
 			box.GetComponent<Rigidbody>().velocity = firstCamera.transform.forward * throwForce + velocity;
